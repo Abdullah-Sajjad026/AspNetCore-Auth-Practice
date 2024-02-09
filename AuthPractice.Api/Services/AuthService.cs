@@ -37,8 +37,8 @@ public class AuthService : IAuthService
 		}
 
 		// If not exists, bootstrap a new user with necessary information
-		AppUser user = new AppUser()
-		{
+		AppUser user = new()
+        {
 			Email = registrationModel.Email,
 			SecurityStamp = Guid.NewGuid().ToString(),
 			UserName = registrationModel.UserName,

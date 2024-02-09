@@ -15,4 +15,3 @@ public static class UserRoles
 	/// </summary>
 	public const string User = "User";
 }
-
