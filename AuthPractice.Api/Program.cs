@@ -1,4 +1,5 @@
 ﻿using AuthPractice.Data.Models;
+using AuthPractice.Api.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,8 @@ var builder = WebApplication.CreateBuilder(args);
 
             };
         });
+
+    builder.Services.AddTransient<IAuthService, AuthService>();
 
     builder.Services.AddControllers();
 
