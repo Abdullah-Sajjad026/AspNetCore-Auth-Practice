@@ -18,7 +18,14 @@ public class AuthController : ControllerBase
         _logger = logger;
     }
 
-    
+    /// <summary>
+    /// Registers an admin for the app
+    /// </summary>
+    /// <param name="registerationModel"></param>
+    /// <returns> Response of action </returns>
+    /// <remarks>
+    /// This is documentation remarks section.
+    /// </remarks>
     [HttpPost("register-admin")]
     public async Task<IActionResult> RegisterAdmin(RegistrationModel registerationModel)
     {
@@ -39,7 +46,7 @@ public class AuthController : ControllerBase
             if (!ModelState.IsValid)
                 return BadRequest("Invalid Payload");
 
-            var (status, message) = await _authService.RegisterUser(model, role);
+            var (status, message) = await _authService.RegisterUserAsync(model, role);
 
             if (status == 0)
                 return BadRequest(message);
@@ -60,7 +67,8 @@ public class AuthController : ControllerBase
     {
         try
         {
-            var (status, message) = await _authService.LoginUser(loginModel);
+            var (status, message) = await _authService.LoginUserAsync(loginModel);
+
             if (status == 0)
                 return BadRequest(message);
 

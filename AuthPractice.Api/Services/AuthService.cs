@@ -25,7 +25,7 @@ public class AuthService : IAuthService
 	/// Registers a new user in the system with the given role and basic user role.
 	/// </summary>
 	/// <param name="role">Make sure that this value has some restrictions like using from a static class or some type of enum.</param>
-	public async Task<(int, string)> RegisterUser(RegistrationModel registrationModel, string role)
+	public async Task<(int, string)> RegisterUserAsync(RegistrationModel registrationModel, string role)
 	{
 		// Checking if user already exists by username
 		var userExists = await _userManager.FindByNameAsync(registrationModel.UserName);
@@ -69,7 +69,7 @@ public class AuthService : IAuthService
 		return (1, "Created Successfully");
 	}
 
-	public async Task<(int, string)> LoginUser(LoginModel loginModel)
+	public async Task<(int, string)> LoginUserAsync(LoginModel loginModel)
 	{
 		var user = await _userManager.FindByNameAsync(loginModel.UserName);
 
@@ -110,8 +110,6 @@ public class AuthService : IAuthService
 		var token = tokenHandler.CreateToken(tokenDescriptor);
 
 		return tokenHandler.WriteToken(token);
-
-
     }
 }
 

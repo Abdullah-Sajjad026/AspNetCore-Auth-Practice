@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
 
+using System.Text;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +52,20 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
 
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(s =>
+    {
+        s.SwaggerDoc("v1", new OpenApiInfo()
+        {
+            Title = "AuthPractice Api",
+            Description = "An API developed in ASP.NET Core to learn auth.",
+            Version = "v1",
+        });
+
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Join(AppContext.BaseDirectory, xmlFile);
+
+        s.IncludeXmlComments(xmlPath);
+    });
 }
 
 var app = builder.Build();
